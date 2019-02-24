@@ -1,0 +1,16 @@
+@import "./navBar.scss";
+@import "./header.scss";
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+.container {
+  background-color: #fefefe;
+}
