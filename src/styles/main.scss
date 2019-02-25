@@ -1,6 +1,9 @@
 @import "./navBar.scss";
 @import "./header.scss";
 
+@import "./login.scss";
+@import "./register.scss";
+
 * {
   margin: 0;
   padding: 0;
@@ -11,6 +14,19 @@ body {
   height: 100%;
 }
 
-.container {
+.wrapper {
   background-color: #fefefe;
+  height: 100vh;
+
+  .page {
+    margin-top: 2rem;
+    margin-bottom: 8rem;
+  }
+}
+
+/**
+*
+*/
+.form-group {
+  margin-top: 1rem;
 }
