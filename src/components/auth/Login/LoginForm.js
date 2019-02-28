@@ -3,30 +3,36 @@ import React from "react";
 const LoginForm = () => {
   return (
     <form id="login-form">
-      <div className="form-group">
-        <label className="font-weight-bold" htmlFor="username">
-          Username
-        </label>
+      <div className="input-group">
         <input
           type="text"
           placeholder="Username"
           name="username"
           className="form-control"
         />
+        <div className="input-group-append">
+          <span className="input-group-text">
+            <i className="fas fa-user" />
+          </span>
+        </div>
       </div>
-      <div className="form-group">
-        <label className="font-weight-bold" htmlFor="password">
-          Password
-        </label>
+
+      <div className="input-group">
         <input
           type="password"
           placeholder="Password"
           name="password"
           className="form-control"
         />
+        <div className="input-group-append">
+          <span className="input-group-text">
+            <i className="fas fa-lock" />
+          </span>
+        </div>
       </div>
+
       <button type="submit" className="mt-2 btn btn-success">
-        Login
+        Sign in
       </button>
     </form>
   );

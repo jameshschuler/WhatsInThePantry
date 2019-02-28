@@ -1,32 +1,47 @@
-@import "./navBar.scss";
-@import "./header.scss";
+@import "./layout/navbar.scss";
+@import "./layout/header.scss";
 
-@import "./login.scss";
-@import "./register.scss";
+@import "./pages/login.scss";
+@import "./pages/register.scss";
 
 * {
-  margin: 0;
-  padding: 0;
+  font-family: "Poppins", sans-serif;
 }
 
-html,
 body {
-  height: 100%;
-}
-
-.wrapper {
-  background-color: #fefefe;
   height: 100vh;
 
-  .page {
-    margin-top: 2rem;
-    margin-bottom: 8rem;
+  .wrapper {
+    height: 100vh;
+
+    &.bg {
+      background-color: #3d7068;
+    }
   }
 }
 
-/**
-*
-*/
-.form-group {
-  margin-top: 1rem;
+.container {
+  margin-top: 50px;
+  margin-bottom: 100px;
+
+  .page {
+    form {
+      width: 75%;
+      margin: 2rem auto 1rem auto;
+
+      .form-group,
+      .input-group {
+        margin: 2rem 0;
+      }
+    }
+
+    .page-redirect {
+      width: 75%;
+      margin: 0.5rem auto;
+    }
+  }
+}
+
+h1 {
+  font-size: 3rem;
 }

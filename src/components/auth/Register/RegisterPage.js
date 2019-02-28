@@ -4,19 +4,21 @@ import RegisterForm from "./RegisterForm";
 
 const RegisterPage = () => {
   return (
-    <div id="register-page" className="page">
-      <h1 className="text-center">Sign up!</h1>
-      <h4 className="text-center">
-        Fill out the form below to create your free account
-      </h4>
-      <RegisterForm />
+    <div className="container">
+      <div id="register-page" className="page">
+        <h1 className="text-center">Sign up!</h1>
+        <h5 className="text-center">
+          Fill out the form below to create your free account.
+        </h5>
+        <RegisterForm />
 
-      <p>
-        Already have an account?
-        <Link to="/login" className="ml-2">
-          Login!
-        </Link>
-      </p>
+        <p className="page-redirect">
+          Already have an account?
+          <Link to="/login" className="ml-2">
+            Login!
+          </Link>
+        </p>
+      </div>
     </div>
   );
 };

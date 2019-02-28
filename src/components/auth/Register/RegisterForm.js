@@ -4,9 +4,6 @@ const RegisterForm = () => {
   return (
     <form id="register-form">
       <div className="form-group">
-        <label className="font-weight-bold" htmlFor="username">
-          Username
-        </label>
         <input
           type="text"
           placeholder="Username"
@@ -15,9 +12,6 @@ const RegisterForm = () => {
         />
       </div>
       <div className="form-group">
-        <label className="font-weight-bold" htmlFor="firstName">
-          First Name
-        </label>
         <input
           type="text"
           placeholder="First Name"
@@ -26,9 +20,6 @@ const RegisterForm = () => {
         />
       </div>
       <div className="form-group">
-        <label className="font-weight-bold" htmlFor="lastName">
-          Last Name
-        </label>
         <input
           type="text"
           placeholder="Last Name"
@@ -37,20 +28,18 @@ const RegisterForm = () => {
         />
       </div>
       <div className="form-group">
-        <label className="font-weight-bold" htmlFor="password">
-          Password
-        </label>
         <input
           type="password"
           placeholder="Password"
           name="password"
           className="form-control"
         />
+        <small className="form-text text-muted">
+          Your password must be at least 12 characters long, contain letters and
+          numbers, and must not contain spaces or emoji.
+        </small>
       </div>
       <div className="form-group">
-        <label className="font-weight-bold" htmlFor="confirm-password">
-          Confirm Password
-        </label>
         <input
           type="password"
           placeholder="Confirm Password"
