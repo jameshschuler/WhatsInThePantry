@@ -1,8 +1,8 @@
 import React from "react";
 
-const AddItemForm = () => {
+const EditItemForm = () => {
   return (
-    <form id="add-item-form" className="row">
+    <form id="edit-item-form" className="row">
       <div className="col-md-6 col-sm-12">
         <div className="form-group">
           <label>Name</label>
@@ -83,4 +83,4 @@ const AddItemForm = () => {
   );
 };
 
-export default AddItemForm;
+export default EditItemForm;

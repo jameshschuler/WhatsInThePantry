@@ -2,7 +2,7 @@ import React from "react";
 
 const RegisterForm = () => {
   return (
-    <form id="register-form">
+    <form id="register-form" className="form">
       <div className="form-group">
         <input
           type="text"

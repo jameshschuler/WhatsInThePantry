@@ -6,10 +6,7 @@ const LoginPage = () => {
   return (
     <div className="container">
       <div id="login-page" className="page">
-        <h1 className="text-center">Sign In!</h1>
-        <h5 className="text-center">
-          Enter your username and password below to get started.
-        </h5>
+        <h1 className="text-center">Sign in!</h1>
 
         <LoginForm />
 

@@ -19,9 +19,15 @@ const NavBar = ({ isAuthenticated }) => {
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink exact to="/add-item" className="navbar-item">
-              <i className="fas fa-plus fa-fw" />
-              <span>Add Item</span>
+            <NavLink exact to="/item" className="navbar-item">
+              <i className="fas fa-carrot fa-fw" />
+              <span>Items</span>
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink exact to="/shopping-list" className="navbar-item">
+              <i className="fas fa-cart-arrow-down fa-fw" />
+              <span>Shopping Lists</span>
             </NavLink>
           </li>
           <li className="nav-item">
