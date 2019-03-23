@@ -15,9 +15,9 @@ const validate = values => {
   return errors;
 };
 
-const SignInForm = ({ signin }) => {
+const SignInForm = ({ submit }) => {
   const { values, errors, handleChange, handleSubmit } = useForm(
-    () => signin(values),
+    () => submit(values),
     validate
   );
 

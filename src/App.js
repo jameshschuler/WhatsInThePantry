@@ -21,6 +21,15 @@ class App extends Component {
     }
   }
 
+  componentDidMount() {
+    const token = localStorage.getItem("whatsinthepantryJWT");
+    if (token) {
+      // TODO: set token as auth header with axios
+      // TODO: save request to server (http://localhost:8080/api/account/current_user) with token
+      console.log("saved", token);
+    }
+  }
+
   render() {
     this.isAuth();
     const { isAuthenticated } = this.props;
@@ -64,7 +73,7 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    isAuthenticated: !!state.auth.user.id
+    isAuthenticated: !!state.auth.user
   };
 };
 
