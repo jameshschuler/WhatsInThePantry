@@ -1,14 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import LoginForm from "./LoginForm";
+import SignInForm from "./SignInForm";
 
-const LoginPage = () => {
+const SignInPage = () => {
+  const signin = values => {
+    console.log(values);
+  };
+
   return (
-    <div className="container">
-      <div id="login-page" className="page">
+    <div className="page row">
+      <div className="col-md-6 offset-md-3">
         <h1 className="text-center">Sign in!</h1>
 
-        <LoginForm />
+        <SignInForm signin={signin} />
 
         <p className="page-redirect">
           Don't have an account?
@@ -21,4 +25,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default SignInPage;

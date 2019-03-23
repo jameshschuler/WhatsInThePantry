@@ -10,7 +10,7 @@ const GuestRoute = ({ component: Component, isAuthenticated, ...rest }) => (
       ) : (
         <Redirect
           to={{
-            pathname: "/"
+            pathname: "/dashboard"
           }}
         />
       )

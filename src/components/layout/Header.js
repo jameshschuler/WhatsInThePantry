@@ -16,7 +16,7 @@ const Header = ({ isAuthenticated }) => {
     </div>
   ) : (
     <div className="text-center">
-      <h1 className="text-white pt-4">What's in the Pantry?</h1>
+      <h1 className="pt-4">What's in the Pantry?</h1>
     </div>
   );
 };
