@@ -1,4 +1,9 @@
-import { BEGIN_FETCH, FETCH_FAILURE, FETCH_SUCCESS } from "../types";
+import {
+  BEGIN_FETCH,
+  FETCH_FAILURE,
+  FETCH_SUCCESS,
+  USER_LOGGED_IN
+} from "../types";
 
 const initialState = {
   user: null,
@@ -29,7 +34,11 @@ const authReducer = (state = initialState, action) => {
         message: action.message,
         errors: action.errors
       };
-
+    case USER_LOGGED_IN:
+      return {
+        ...state,
+        user: action.user
+      };
     default:
       return state;
   }

@@ -1,5 +1,10 @@
-import api from "../../api/api";
-import { BEGIN_FETCH, FETCH_FAILURE, FETCH_SUCCESS } from "../types";
+import api from "../../api";
+import {
+  BEGIN_FETCH,
+  FETCH_FAILURE,
+  FETCH_SUCCESS,
+  USER_LOGGED_IN
+} from "../types";
 
 const beginFetch = isFetching => ({
   type: BEGIN_FETCH,
@@ -17,6 +22,11 @@ const fetchFailure = (isFetching, message, errors) => ({
   isFetching,
   message,
   errors
+});
+
+export const userLoggedIn = user => ({
+  type: USER_LOGGED_IN,
+  user
 });
 
 export const signin = creds => async (dispatch, getState) => {

@@ -9,6 +9,7 @@ import DashboardPage from "./components/DashboardPage";
 import HomePage from "./components/HomePage";
 import Header from "./components/layout/Header";
 import NavBar from "./components/layout/NavBar";
+import Index from "./components/pages/item/Index";
 
 class App extends Component {
   isAuth() {
@@ -18,15 +19,6 @@ class App extends Component {
       document.body.classList.add("bg");
     } else {
       document.body.classList.remove("bg");
-    }
-  }
-
-  componentDidMount() {
-    const token = localStorage.getItem("whatsinthepantryJWT");
-    if (token) {
-      // TODO: set token as auth header with axios
-      // TODO: save request to server (http://localhost:8080/api/account/current_user) with token
-      console.log("saved", token);
     }
   }
 
@@ -63,6 +55,13 @@ class App extends Component {
               exact
               path="/dashboard"
               component={DashboardPage}
+            />
+
+            <PrivateRoute
+              isAuthenticated={isAuthenticated}
+              exact
+              path="/items"
+              component={Index}
             />
           </div>
         </div>

@@ -5,6 +5,23 @@
   }
 }
 
+/* header styles */
+#header {
+  padding: 0 0.5rem;
+
+  #header-links {
+  }
+}
+
+/* bottom navbar styles */
+.navbar {
+  .navbar-item {
+    svg {
+      margin-right: 0.5rem;
+    }
+  }
+}
+
 /* Sign In Styles */
 #signin-form {
   .input-group {
@@ -27,4 +44,24 @@ p.help {
 .invalid {
   border: 1px solid #dc3545 !important;
   border-radius: 0.25rem;
+}
+
+/* Spinner */
+.spinner-container {
+  margin-top: 3rem;
+
+  .spinner-lg {
+    height: 3rem;
+    width: 3rem;
+  }
+}
+
+.table {
+  thead {
+    tr {
+      th {
+        border-top: 0;
+      }
+    }
+  }
 }
