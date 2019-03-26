@@ -2,7 +2,8 @@ import {
   BEGIN_FETCH,
   FETCH_FAILURE,
   FETCH_SUCCESS,
-  USER_LOGGED_IN
+  USER_SIGNED_IN,
+  USER_SIGNED_OUT
 } from "../types";
 
 const initialState = {
@@ -34,10 +35,16 @@ const authReducer = (state = initialState, action) => {
         message: action.message,
         errors: action.errors
       };
-    case USER_LOGGED_IN:
+    case USER_SIGNED_IN:
       return {
         ...state,
         user: action.user
+      };
+
+    case USER_SIGNED_OUT:
+      return {
+        ...state,
+        user: null
       };
     default:
       return state;

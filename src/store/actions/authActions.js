@@ -3,7 +3,8 @@ import {
   BEGIN_FETCH,
   FETCH_FAILURE,
   FETCH_SUCCESS,
-  USER_LOGGED_IN
+  USER_SIGNED_IN,
+  USER_SIGNED_OUT
 } from "../types";
 
 const beginFetch = isFetching => ({
@@ -24,9 +25,13 @@ const fetchFailure = (isFetching, message, errors) => ({
   errors
 });
 
-export const userLoggedIn = user => ({
-  type: USER_LOGGED_IN,
+export const userSignedIn = user => ({
+  type: USER_SIGNED_IN,
   user
+});
+
+export const userSignedOut = () => ({
+  type: USER_SIGNED_OUT
 });
 
 export const signin = creds => async (dispatch, getState) => {
@@ -35,6 +40,34 @@ export const signin = creds => async (dispatch, getState) => {
   const response = await api.signin(creds);
 
   if (response.errors && response.errors.length > 0) {
+    dispatch(fetchFailure(false, response.message, response.errors));
+  } else {
+    // save to local storage
+    const {
+      token: { token }
+    } = response;
+    localStorage.setItem("whatsinthepantryJWT", token);
+
+    dispatch(fetchSuccess(false, response));
+  }
+};
+
+export const signout = () => dispatch => {
+  localStorage.removeItem("whatsinthepantryJWT");
+  dispatch(userSignedOut());
+};
+
+export const me = () => async dispatch => {
+  dispatch(beginFetch(true));
+
+  const response = await api.me();
+
+  if (response.data.errors && response.data.errors.length > 0) {
+    if (response.status === 401) {
+      localStorage.removeItem("whatsinthepantryJWT");
+      dispatch(userSignedOut());
+    }
+
     dispatch(fetchFailure(false, response.message, response.errors));
   } else {
     // save to local storage

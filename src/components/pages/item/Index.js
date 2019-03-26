@@ -13,8 +13,8 @@ const Index = () => {
   const getItems = async () => {
     const response = await api.items.getItems();
 
-    if (response.errors) {
-      setErrors(response.errors);
+    if (response.data.errors) {
+      setErrors(response.data.errors);
     } else {
       setItems(response);
     }

@@ -1,11 +1,5 @@
 export const BEGIN_FETCH = "BEGIN_FETCH";
 export const FETCH_FAILURE = "FETCH_FAILURE";
 export const FETCH_SUCCESS = "FETCH_SUCCESS";
-export const USER_LOGGED_IN = "USER_LOGGED_IN";
-
-/*
- *   Item Types
- */
-export const BEGIN_FETCH_ITEMS = "BEGIN_FETCH_ITEMS";
-export const FETCH_ITEMS_SUCCESS = "FETCH_ITEMS_SUCCESS";
-export const FETCH_ITEMS_FAILURE = "FETCH_ITEMS_FAILURE";
+export const USER_SIGNED_IN = "USER_SIGNED_IN";
+export const USER_SIGNED_OUT = "USER_SIGNED_OUT";

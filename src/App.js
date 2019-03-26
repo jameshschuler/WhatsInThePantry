@@ -10,6 +10,7 @@ import HomePage from "./components/HomePage";
 import Header from "./components/layout/Header";
 import NavBar from "./components/layout/NavBar";
 import Index from "./components/pages/item/Index";
+import { me } from "./store/actions/authActions";
 
 class App extends Component {
   isAuth() {
@@ -20,6 +21,10 @@ class App extends Component {
     } else {
       document.body.classList.remove("bg");
     }
+  }
+
+  async componentDidMount() {
+    await this.props.me();
   }
 
   render() {
@@ -76,4 +81,9 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(App);
+export default connect(
+  mapStateToProps,
+  {
+    me
+  }
+)(App);

@@ -6,7 +6,7 @@ import setAuthorizationHeader from "./api/setAuthorizationHeader";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import store from "./store";
-import { userLoggedIn } from "./store/actions/authActions";
+import { userSignedIn } from "./store/actions/authActions";
 import "./styles/main.scss";
 
 const token = localStorage.getItem("whatsinthepantryJWT");
@@ -19,7 +19,7 @@ if (token) {
   };
 
   setAuthorizationHeader(token);
-  store.dispatch(userLoggedIn(user));
+  store.dispatch(userSignedIn(user));
 }
 
 ReactDOM.render(
