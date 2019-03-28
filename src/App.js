@@ -9,6 +9,7 @@ import DashboardPage from "./components/DashboardPage";
 import HomePage from "./components/HomePage";
 import Header from "./components/layout/Header";
 import NavBar from "./components/layout/NavBar";
+import CreateItemPage from "./components/pages/item/CreateItemPage";
 import Index from "./components/pages/item/Index";
 import { me } from "./store/actions/authActions";
 
@@ -67,6 +68,13 @@ class App extends Component {
               exact
               path="/items"
               component={Index}
+            />
+
+            <PrivateRoute
+              isAuthenticated={isAuthenticated}
+              exact
+              path="/items/create"
+              component={CreateItemPage}
             />
           </div>
         </div>

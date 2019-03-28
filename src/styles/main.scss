@@ -1,7 +1,18 @@
 .page {
   padding-top: 4rem;
+  padding-bottom: 4rem;
 
   .form {
+    .required {
+      color: #dc3545;
+      margin-left: 0.25rem;
+      margin-bottom: 0.15rem;
+      font-size: 0.5em;
+    }
+
+    .form-group {
+      margin: 1rem 0 0.25rem 0;
+    }
   }
 }
 

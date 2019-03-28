@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import api from "../../../api/index";
 import Spinner from "../../Spinner";
 
@@ -12,8 +13,7 @@ const Index = () => {
 
   const getItems = async () => {
     const response = await api.items.getItems();
-
-    if (response.data.errors) {
+    if (response.data && response.data.errors) {
       setErrors(response.data.errors);
     } else {
       setItems(response);
@@ -26,7 +26,9 @@ const Index = () => {
         <div className="col-md-12">
           <div className="d-flex justify-content-between align-items-center">
             <h2>Items</h2>
-            <button className="btn btn-success">New Item</button>
+            <Link to="/items/create" className="btn btn-success">
+              New Item
+            </Link>
           </div>
           <hr />
           {errors && errors.length > 0 ? (

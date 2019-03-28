@@ -1,4 +1,5 @@
 import api from "../../api";
+import setAuthorizationHeader from "../../api/setAuthorizationHeader";
 import {
   BEGIN_FETCH,
   FETCH_FAILURE,
@@ -47,6 +48,7 @@ export const signin = creds => async (dispatch, getState) => {
       token: { token }
     } = response;
     localStorage.setItem("whatsinthepantryJWT", token);
+    setAuthorizationHeader(token);
 
     dispatch(fetchSuccess(false, response));
   }
@@ -62,7 +64,11 @@ export const me = () => async dispatch => {
 
   const response = await api.me();
 
-  if (response.data.errors && response.data.errors.length > 0) {
+  if (
+    response.data &&
+    response.data.errors &&
+    response.data.errors.length > 0
+  ) {
     if (response.status === 401) {
       localStorage.removeItem("whatsinthepantryJWT");
       dispatch(userSignedOut());
