@@ -58,6 +58,86 @@ export default {
       }
 
       return response.data.items;
+    },
+    create: async values => {
+      console.log(values);
+      const { name } = values;
+      let response;
+      try {
+        response = await axiosInstance.post("http://localhost:8080/api/item", {
+          name
+        });
+      } catch (err) {
+        return err.response.data;
+      }
+
+      return response;
+    }
+  },
+  category: {
+    getItemCategories: async () => {
+      let response;
+      try {
+        response = await axiosInstance.get(
+          "http://localhost:8080/api/item_category"
+        );
+      } catch (err) {
+        if (err.response.status === 404) {
+          return {
+            data: {
+              errors: ["Unable to retrieve item categories."]
+            }
+          };
+        }
+
+        return err.response;
+      }
+
+      return response.data.itemCategories;
+    }
+  },
+  itemAmount: {
+    getItemAmounts: async () => {
+      let response;
+      try {
+        response = await axiosInstance.get(
+          "http://localhost:8080/api/item_amount"
+        );
+      } catch (err) {
+        if (err.response.status === 404) {
+          return {
+            data: {
+              errors: ["Unable to retrieve item amnounts."]
+            }
+          };
+        }
+
+        return err.response;
+      }
+
+      return response.data.itemAmounts;
+    }
+  },
+  itemLocation: {
+    getItemLocations: async () => {
+      let response;
+      try {
+        response = await axiosInstance.get(
+          "http://localhost:8080/api/item_location"
+        );
+      } catch (err) {
+        if (err.response.status === 404) {
+          return {
+            data: {
+              errors: ["Unable to retrieve item locations."]
+            }
+          };
+        }
+
+        return err.response;
+      }
+
+      return response.data.itemLocations;
     }
   }
 };
