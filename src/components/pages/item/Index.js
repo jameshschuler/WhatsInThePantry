@@ -1,24 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import api from "../../../api/index";
+import { getItems } from "../../../store/actions/itemActions";
 import Spinner from "../../Spinner";
 
-const Index = () => {
-  const [items, setItems] = useState([]);
-  const [errors, setErrors] = useState([]);
-
+const Index = ({ getItems, isFetching, items }) => {
   useEffect(() => {
     getItems();
   }, []);
-
-  const getItems = async () => {
-    const response = await api.items.getItems();
-    if (response.data && response.data.errors) {
-      setErrors(response.data.errors);
-    } else {
-      setItems(response);
-    }
-  };
 
   return (
     <div className="container mt-5">
@@ -31,37 +20,40 @@ const Index = () => {
             </Link>
           </div>
           <hr />
-          {errors && errors.length > 0 ? (
-            errors.map((error, index) => {
-              return (
-                <div className="alert alert-danger" key={index}>
-                  <strong className="mr-2">Error!</strong> {error}
-                </div>
-              );
-            })
-          ) : items && items.length > 0 ? (
-            <table className="table table-striped mt-3">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Price</th>
-                  <th>Description</th>
-                </tr>
-              </thead>
-              <tbody>
-                {items.map((item, index) => {
-                  return (
-                    <tr key={index}>
-                      <td>{item.name}</td>
-                      <td>{item.price}</td>
-                      <td>{item.description}</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          ) : (
-            <Spinner />
+          {isFetching && <Spinner />}
+          {items.length > 0 && (
+            <div className="table-responsive">
+              <table className="table table-striped mt-3">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Category</th>
+                    <th>Default Item Amount</th>
+                    <th>Default Location</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {items.map((item, index) => {
+                    return (
+                      <tr key={index}>
+                        <td>{item.name}</td>
+                        <td>{item.description}</td>
+                        <td>{item.itemCategory.name}</td>
+                        <td>
+                          {item.defaultItemAmount &&
+                            item.defaultItemAmount.name}
+                        </td>
+                        <td>
+                          {item.defaultItemLocation &&
+                            item.defaultItemLocation.name}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
           )}
         </div>
       </div>
@@ -69,4 +61,17 @@ const Index = () => {
   );
 };
 
-export default Index;
+const mapStateToProps = state => {
+  return {
+    ...state,
+    isFetching: state.global.isFetching,
+    items: state.item.items
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  {
+    getItems
+  }
+)(Index);

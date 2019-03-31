@@ -1,63 +1,85 @@
-import React, { useEffect, useState } from "react";
-import api from "../../../api";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import {
+  createItem,
+  getItemAmounts,
+  getItemCategories,
+  getItemLocations
+} from "../../../store/actions/itemActions";
+import Spinner from "../../Spinner";
 import CreateItemForm from "./CreateItemForm";
 
-const CreateItemPage = () => {
-  const [errors, setErrors] = useState([]);
-  const [itemCategories, setItemCategories] = useState([]);
-  const [itemAmounts, setItemAmounts] = useState([]);
-  const [itemLocations, setItemLocations] = useState([]);
-
+const CreateItemPage = ({
+  getItemCategories,
+  getItemAmounts,
+  getItemLocations,
+  createItem,
+  itemCategories,
+  itemLocations,
+  itemAmounts,
+  isFetching,
+  errors,
+  message
+}) => {
   useEffect(() => {
     getItemCategories();
     getItemAmounts();
     getItemLocations();
   }, []);
 
-  const getItemCategories = async () => {
-    const response = await api.category.getItemCategories();
-    if (response.data && response.data.errors) {
-      setErrors(response.data.errors);
-    } else {
-      setItemCategories(response);
-    }
-  };
-
-  const getItemAmounts = async () => {
-    const response = await api.itemAmount.getItemAmounts();
-    if (response.data && response.data.errors) {
-      setErrors(response.data.errors);
-    } else {
-      setItemAmounts(response);
-    }
-  };
-
-  const getItemLocations = async () => {
-    const response = await api.itemLocation.getItemLocations();
-    if (response.data && response.data.errors) {
-      setErrors(response.data.errors);
-    } else {
-      setItemLocations(response);
-    }
+  const submit = async values => {
+    await createItem(values);
   };
 
   return (
     <div className="page">
-      {errors &&
-        errors.map((error, index) => {
-          return (
-            <div className="alert alert-danger" key={index}>
-              <strong className="mr-2">Error!</strong> {error}
-            </div>
-          );
-        })}
-      <CreateItemForm
-        itemCategories={itemCategories}
-        itemLocations={itemLocations}
-        itemAmounts={itemAmounts}
-      />
+      {message && <div className="alert alert-success">{message}</div>}
+      {errors && (
+        <div className="alert alert-danger d-flex flex-column">
+          <strong>Error!</strong>
+          {errors.map((error, index) => {
+            return <span key={index}>{error}</span>;
+          })}
+        </div>
+      )}
+      <Link to="/items">
+        <i className="fas fa-fw fa-arrow-left" /> Back to Items
+      </Link>
+      {isFetching ? (
+        <Spinner />
+      ) : (
+        <CreateItemForm
+          itemCategories={itemCategories}
+          itemLocations={itemLocations}
+          itemAmounts={itemAmounts}
+          submit={submit}
+        />
+      )}
     </div>
   );
 };
 
-export default CreateItemPage;
+const mapStateToProps = state => {
+  const { isFetching, errors, message } = state.global;
+
+  return {
+    ...state,
+    isFetching,
+    errors,
+    message,
+    itemCategories: state.item.itemCategories,
+    itemAmounts: state.item.itemAmounts,
+    itemLocations: state.item.itemLocations
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  {
+    getItemCategories,
+    getItemLocations,
+    getItemAmounts,
+    createItem
+  }
+)(CreateItemPage);

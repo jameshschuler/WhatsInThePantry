@@ -1,7 +1,5 @@
-import React, { useState } from "react";
-import api from "../../../api";
+import React from "react";
 import useForm from "../../hooks/useForm";
-import parseErrors from "../../utils/parseErrors";
 
 const validate = values => {
   let errors = {};
@@ -25,21 +23,13 @@ const CreateItemForm = ({
   responseErrors,
   itemCategories,
   itemAmounts,
-  itemLocations
+  itemLocations,
+  submit
 }) => {
   const { values, errors, handleChange, handleSubmit } = useForm(
-    () => submit(),
+    () => submit(values),
     validate
   );
-
-  const [parsedErrors, setParsedErrors] = useState(null);
-
-  const submit = async () => {
-    const response = await api.items.create(values);
-    if (errors) {
-      setParsedErrors(parseErrors(response));
-    }
-  };
 
   return (
     <form className="form" onSubmit={handleSubmit}>
@@ -50,22 +40,6 @@ const CreateItemForm = ({
         </button>
       </div>
       <hr />
-      {parsedErrors ? (
-        <div className="alert alert-danger">
-          <strong className="mr-2">{parsedErrors.message || "Error!"}</strong>
-          {/* <div className="d-flex flex-column">
-            {submitErrors.errors.map((error, index) => {
-              return (
-                <>
-                  {error.messages.map((message, index) => {
-                    return <span key={index}>{message}</span>;
-                  })}
-                </>
-              );
-            })}
-          </div> */}
-        </div>
-      ) : null}
 
       <div className="form-group">
         <label htmlFor="">
@@ -93,7 +67,7 @@ const CreateItemForm = ({
           name="category"
         >
           <option value="">-- Select a category --</option>
-          {itemCategories &&
+          {itemCategories.length > 0 &&
             itemCategories.map((category, index) => {
               return (
                 <option value={category.id} key={index}>

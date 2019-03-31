@@ -59,14 +59,13 @@ export default {
 
       return response.data.items;
     },
-    create: async values => {
-      console.log(values);
-      const { name } = values;
+    create: async item => {
       let response;
       try {
-        response = await axiosInstance.post("http://localhost:8080/api/item", {
-          name
-        });
+        response = await axiosInstance.post(
+          "http://localhost:8080/api/item",
+          item
+        );
       } catch (err) {
         return err.response.data;
       }
@@ -79,7 +78,7 @@ export default {
       let response;
       try {
         response = await axiosInstance.get(
-          "http://localhost:8080/api/item_category"
+          "http://localhost:8080/api/item/category"
         );
       } catch (err) {
         if (err.response.status === 404) {
@@ -101,7 +100,7 @@ export default {
       let response;
       try {
         response = await axiosInstance.get(
-          "http://localhost:8080/api/item_amount"
+          "http://localhost:8080/api/item/amount"
         );
       } catch (err) {
         if (err.response.status === 404) {
@@ -123,7 +122,7 @@ export default {
       let response;
       try {
         response = await axiosInstance.get(
-          "http://localhost:8080/api/item_location"
+          "http://localhost:8080/api/item/location"
         );
       } catch (err) {
         if (err.response.status === 404) {
