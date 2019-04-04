@@ -7,7 +7,9 @@ import {
   getItemCategories,
   getItemLocations
 } from "../../../store/actions/itemActions";
-import Spinner from "../../Spinner";
+import Alert from "../../helpers/Alert";
+import ErrorAlert from "../../helpers/ErrorAlert";
+import Spinner from "../../helpers/Spinner";
 import CreateItemForm from "./CreateItemForm";
 
 const CreateItemPage = ({
@@ -34,15 +36,8 @@ const CreateItemPage = ({
 
   return (
     <div className="page">
-      {message && <div className="alert alert-success">{message}</div>}
-      {errors && (
-        <div className="alert alert-danger d-flex flex-column">
-          <strong>Error!</strong>
-          {errors.map((error, index) => {
-            return <span key={index}>{error}</span>;
-          })}
-        </div>
-      )}
+      <Alert type={"success"} header={"Success!"} message={message} />
+      <ErrorAlert errors={errors} />
       <Link to="/items">
         <i className="fas fa-fw fa-arrow-left" /> Back to Items
       </Link>

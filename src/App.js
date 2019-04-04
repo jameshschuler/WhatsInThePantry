@@ -5,12 +5,13 @@ import GuestRoute from "./components/auth/GuestRoute";
 import PrivateRoute from "./components/auth/PrivateRoute";
 import RegisterPage from "./components/auth/Register/RegisterPage";
 import SignInPage from "./components/auth/SignIn/SignInPage";
-import DashboardPage from "./components/DashboardPage";
-import HomePage from "./components/HomePage";
 import Header from "./components/layout/Header";
 import NavBar from "./components/layout/NavBar";
+import DashboardPage from "./components/pages/DashboardPage";
+import HomePage from "./components/pages/HomePage";
 import CreateItemPage from "./components/pages/item/CreateItemPage";
-import Index from "./components/pages/item/Index";
+import ItemIndex from "./components/pages/item/Index";
+import PantryIndex from "./components/pages/pantry/Index";
 import { me } from "./store/actions/authActions";
 
 class App extends Component {
@@ -67,7 +68,7 @@ class App extends Component {
               isAuthenticated={isAuthenticated}
               exact
               path="/items"
-              component={Index}
+              component={ItemIndex}
             />
 
             <PrivateRoute
@@ -75,6 +76,13 @@ class App extends Component {
               exact
               path="/items/create"
               component={CreateItemPage}
+            />
+
+            <PrivateRoute
+              isAuthenticated={isAuthenticated}
+              exact
+              path="/pantries"
+              component={PantryIndex}
             />
           </div>
         </div>

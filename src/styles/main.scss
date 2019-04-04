@@ -11,7 +11,7 @@
     }
 
     .form-group {
-      margin: 1rem 0 0.75rem 0;
+      margin: 1.5rem 0 0.75rem 0;
     }
   }
 }
@@ -26,6 +26,8 @@
 
 /* bottom navbar styles */
 .navbar {
+  background-color: cyan; // TEMP
+
   .navbar-item {
     svg {
       margin-right: 0.5rem;

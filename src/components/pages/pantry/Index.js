@@ -1,55 +1,54 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { getItems } from "../../../store/actions/itemActions";
+import { getPantries } from "../../../store/actions/pantryActions";
 import Alert from "../../helpers/Alert";
 import Spinner from "../../helpers/Spinner";
 
-const Index = ({ getItems, isFetching, items }) => {
+const Index = ({ isFetching, pantries, getPantries }) => {
   useEffect(() => {
-    getItems();
+    getPantries();
   }, []);
+
+  const parseDate = date => {
+    // TODO: clean this up
+    console.log(date);
+    const nd = new Date(date);
+    console.log(nd);
+    return nd.toString();
+  };
 
   return (
     <div className="container mt-5">
       <div className="row">
         <div className="col-md-12">
           <div className="d-flex justify-content-between align-items-center">
-            <h2>Items</h2>
-            <Link to="/items/create" className="btn btn-success">
-              New Item
+            <h2>Pantries</h2>
+            <Link to="/pantries/create" className="btn btn-success">
+              New Pantry
             </Link>
           </div>
           <hr />
           {isFetching && <Spinner />}
-          {items.length > 0 ? (
+          {pantries.length > 0 ? (
             <div className="table-responsive">
               <table className="table table-striped mt-3">
                 <thead>
                   <tr>
                     <th>Name</th>
-                    <th>Description</th>
-                    <th>Category</th>
-                    <th>Default Item Amount</th>
-                    <th>Default Location</th>
+                    <th>Shared</th>
+                    <th>Created</th>
                     <th />
                   </tr>
                 </thead>
                 <tbody>
-                  {items.map((item, index) => {
+                  {pantries.map((pantry, index) => {
+                    console.log(pantry);
                     return (
                       <tr key={index}>
-                        <td>{item.name}</td>
-                        <td>{item.description}</td>
-                        <td>{item.itemCategory.name}</td>
-                        <td>
-                          {item.defaultItemAmount &&
-                            item.defaultItemAmount.name}
-                        </td>
-                        <td>
-                          {item.defaultItemLocation &&
-                            item.defaultItemLocation.name}
-                        </td>
+                        <td>{pantry.name}</td>
+                        <td>{pantry.isShared ? "Yes" : "No"}</td>
+                        <td>{parseDate(pantry.createdAt)}</td>
                         <td>
                           <i className="fas fa-pencil-alt fa-fw" />
                           <i className="fas fa-trash-alt fa-fw" />
@@ -64,7 +63,7 @@ const Index = ({ getItems, isFetching, items }) => {
             <Alert
               type={"info"}
               header={"Info!"}
-              message={"No items found. Try creating a new one!"}
+              message={"No pantries found. Try creating a new one!"}
             />
           )}
         </div>
@@ -77,13 +76,13 @@ const mapStateToProps = state => {
   return {
     ...state,
     isFetching: state.global.isFetching,
-    items: state.item.items
+    pantries: state.pantry.pantries
   };
 };
 
 export default connect(
   mapStateToProps,
   {
-    getItems
+    getPantries
   }
 )(Index);

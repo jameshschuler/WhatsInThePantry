@@ -138,5 +138,23 @@ export default {
 
       return response.data.itemLocations;
     }
+  },
+  pantries: {
+    getPantries: async () => {
+      let response;
+      try {
+        response = await axiosInstance.get("http://localhost:8080/api/pantry");
+      } catch (err) {
+        if (err.response.status === 404) {
+          return {
+            errors: ["Unable to retrieve pantries."]
+          };
+        }
+
+        return err.response;
+      }
+
+      return response.data.pantries;
+    }
   }
 };
