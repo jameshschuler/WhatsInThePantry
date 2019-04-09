@@ -51,8 +51,8 @@ const Index = ({ getItems, isFetching, items }) => {
                             item.defaultItemLocation.name}
                         </td>
                         <td>
-                          <i className="fas fa-pencil-alt fa-fw" />
-                          <i className="fas fa-trash-alt fa-fw" />
+                          <i className="fas fa-lg fa-pencil-alt fa-fw" />
+                          <i className="fas fa-lg fa-trash-alt fa-fw" />
                         </td>
                       </tr>
                     );

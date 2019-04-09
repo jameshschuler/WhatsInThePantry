@@ -11,11 +11,8 @@ const Index = ({ isFetching, pantries, getPantries }) => {
   }, []);
 
   const parseDate = date => {
-    // TODO: clean this up
-    console.log(date);
     const nd = new Date(date);
-    console.log(nd);
-    return nd.toString();
+    return nd.toLocaleDateString();
   };
 
   return (
@@ -43,15 +40,17 @@ const Index = ({ isFetching, pantries, getPantries }) => {
                 </thead>
                 <tbody>
                   {pantries.map((pantry, index) => {
-                    console.log(pantry);
                     return (
                       <tr key={index}>
                         <td>{pantry.name}</td>
                         <td>{pantry.isShared ? "Yes" : "No"}</td>
                         <td>{parseDate(pantry.createdAt)}</td>
-                        <td>
-                          <i className="fas fa-pencil-alt fa-fw" />
-                          <i className="fas fa-trash-alt fa-fw" />
+                        <td className="d-flex justify-content-end">
+                          <Link to={`/pantries/${pantry.id}/create_item`}>
+                            <i className="fas fa-lg fa-plus fa-fw" />
+                          </Link>
+                          <i className="fas fa-lg fa-pencil-alt fa-fw" />
+                          <i className="fas fa-lg fa-trash-alt fa-fw" />
                         </td>
                       </tr>
                     );

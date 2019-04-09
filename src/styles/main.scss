@@ -78,3 +78,18 @@ p.help {
     }
   }
 }
+
+/*
+* Font Awesome
+*/
+.fa-trash-alt {
+  color: red;
+}
+
+svg {
+  color: blue;
+
+  :hover {
+    cursor: pointer;
+  }
+}

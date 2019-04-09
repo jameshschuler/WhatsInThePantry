@@ -11,7 +11,9 @@ import DashboardPage from "./components/pages/DashboardPage";
 import HomePage from "./components/pages/HomePage";
 import CreateItemPage from "./components/pages/item/CreateItemPage";
 import ItemIndex from "./components/pages/item/Index";
+import CreatePantryPage from "./components/pages/pantry/CreatePantryPage";
 import PantryIndex from "./components/pages/pantry/Index";
+import CreatePantryItemPage from "./components/pages/pantry/pantryItem/CreatePantryItemPage";
 import { me } from "./store/actions/authActions";
 
 class App extends Component {
@@ -83,6 +85,20 @@ class App extends Component {
               exact
               path="/pantries"
               component={PantryIndex}
+            />
+
+            <PrivateRoute
+              isAuthenticated={isAuthenticated}
+              exact
+              path="/pantries/create"
+              component={CreatePantryPage}
+            />
+
+            <PrivateRoute
+              isAuthenticated={isAuthenticated}
+              exact
+              path="/pantries/:id/create_item"
+              component={CreatePantryItemPage}
             />
           </div>
         </div>

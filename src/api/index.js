@@ -155,6 +155,19 @@ export default {
       }
 
       return response.data.pantries;
+    },
+    create: async name => {
+      let response;
+      try {
+        response = await axiosInstance.post(
+          "http://localhost:8080/api/pantry",
+          name
+        );
+      } catch (err) {
+        return err.response.data;
+      }
+
+      return response;
     }
   }
 };
