@@ -1,6 +1,8 @@
 import axios from "axios";
+import item from "./item";
+import pantry from "./pantry";
 
-const axiosInstance = axios.create();
+export const axiosInstance = axios.create();
 
 // Add a response interceptor
 axiosInstance.interceptors.response.use(
@@ -14,6 +16,8 @@ axiosInstance.interceptors.response.use(
 );
 
 export default {
+  item,
+  pantry,
   signin: async creds => {
     let response;
     try {
@@ -41,37 +45,6 @@ export default {
     }
 
     return response.data.user;
-  },
-  items: {
-    getItems: async () => {
-      let response;
-      try {
-        response = await axiosInstance.get("http://localhost:8080/api/item");
-      } catch (err) {
-        if (err.response.status === 404) {
-          return {
-            errors: ["Unable to retrieve items."]
-          };
-        }
-
-        return err.response;
-      }
-
-      return response.data.items;
-    },
-    create: async item => {
-      let response;
-      try {
-        response = await axiosInstance.post(
-          "http://localhost:8080/api/item",
-          item
-        );
-      } catch (err) {
-        return err.response.data;
-      }
-
-      return response;
-    }
   },
   category: {
     getItemCategories: async () => {
@@ -137,37 +110,6 @@ export default {
       }
 
       return response.data.itemLocations;
-    }
-  },
-  pantries: {
-    getPantries: async () => {
-      let response;
-      try {
-        response = await axiosInstance.get("http://localhost:8080/api/pantry");
-      } catch (err) {
-        if (err.response.status === 404) {
-          return {
-            errors: ["Unable to retrieve pantries."]
-          };
-        }
-
-        return err.response;
-      }
-
-      return response.data.pantries;
-    },
-    create: async name => {
-      let response;
-      try {
-        response = await axiosInstance.post(
-          "http://localhost:8080/api/pantry",
-          name
-        );
-      } catch (err) {
-        return err.response.data;
-      }
-
-      return response;
     }
   }
 };

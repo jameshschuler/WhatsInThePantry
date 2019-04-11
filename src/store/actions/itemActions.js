@@ -1,5 +1,6 @@
 import api from "../../api";
 import {
+  FETCH_ITEMS_AUTOCOMPLETE_SUCCESS,
   FETCH_ITEMS_SUCCESS,
   FETCH_ITEM_AMOUNTS_SUCCESS,
   FETCH_ITEM_CATEGORIES_SUCCESS,
@@ -10,6 +11,13 @@ import { beginFetch, fetchFailure, fetchSuccess } from "./globalActions";
 const fetchItemsSuccess = items => {
   return {
     type: FETCH_ITEMS_SUCCESS,
+    items
+  };
+};
+
+const fetchItemsAutocompleteSuccess = items => {
+  return {
+    type: FETCH_ITEMS_AUTOCOMPLETE_SUCCESS,
     items
   };
 };
@@ -40,7 +48,7 @@ export const createItem = values => async (dispatch, getState) => {
 
   const { itemName, amount, category, description, location } = values;
 
-  const response = await api.items.create({
+  const response = await api.item.create({
     name: itemName,
     defaultItemAmountId: amount,
     itemCategoryId: category,
@@ -56,12 +64,25 @@ export const createItem = values => async (dispatch, getState) => {
 };
 
 export const getItems = () => async (dispatch, getState) => {
-  const response = await api.items.getItems();
+  const response = await api.item.getItems();
 
   if (response.data && response.data.errors) {
     dispatch(fetchFailure(false, response.data.errors));
   } else {
     dispatch(fetchItemsSuccess(response));
+    dispatch(fetchSuccess(false));
+  }
+};
+
+export const getItemsAutocomplete = () => async (dispatch, getState) => {
+  dispatch(beginFetch(true));
+
+  const response = await api.item.getItemAutocomplete();
+
+  if (response.data && response.data.errors) {
+    dispatch(fetchFailure(false, response.data.errors));
+  } else {
+    dispatch(fetchItemsAutocompleteSuccess(response));
     dispatch(fetchSuccess(false));
   }
 };

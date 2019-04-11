@@ -1,18 +1,12 @@
-// import React from "react";
-
-// const CreatePantryItemPage = ({
-//   match: {
-//     params: { id }
-//   }
-// }) => {
-//   return <div />;
-// };
-
-// export default CreatePantryItemPage;
-
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import {
+  getItemAmounts,
+  getItemLocations,
+  getItemsAutocomplete
+} from "../../../../store/actions/itemActions";
+import { createPantryItem } from "../../../../store/actions/pantryActions";
 import Alert from "../../../helpers/Alert";
 import ErrorAlert from "../../../helpers/ErrorAlert";
 import Spinner from "../../../helpers/Spinner";
@@ -24,11 +18,28 @@ const CreatePantryItemPage = ({
   },
   errors,
   message,
-  isFetching
+  isFetching,
+  itemsAutocomplete,
+  itemLocations,
+  itemAmounts,
+  getItemsAutocomplete,
+  getItemAmounts,
+  getItemLocations,
+  createPantryItem
 }) => {
+  const getData = async () => {
+    await getItemsAutocomplete();
+    await getItemAmounts();
+    await getItemLocations();
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   const submit = async values => {
     values.pantryId = id;
-    console.log("values", values);
+    await createPantryItem(values);
   };
 
   return (
@@ -38,7 +49,16 @@ const CreatePantryItemPage = ({
       <Link to="/pantries">
         <i className="fas fa-fw fa-arrow-left" /> Back to Pantries
       </Link>
-      {isFetching ? <Spinner /> : <CreatePantryItemForm submit={submit} />}
+      {isFetching ? (
+        <Spinner />
+      ) : (
+        <CreatePantryItemForm
+          itemsAutocomplete={itemsAutocomplete}
+          itemLocations={itemLocations}
+          itemAmounts={itemAmounts}
+          submit={submit}
+        />
+      )}
     </div>
   );
 };
@@ -50,8 +70,19 @@ const mapStateToProps = state => {
     ...state,
     isFetching,
     errors,
-    message
+    message,
+    itemsAutocomplete: state.item.itemsAutocomplete,
+    itemAmounts: state.item.itemAmounts,
+    itemLocations: state.item.itemLocations
   };
 };
 
-export default connect(mapStateToProps)(CreatePantryItemPage);
+export default connect(
+  mapStateToProps,
+  {
+    getItemsAutocomplete,
+    getItemAmounts,
+    getItemLocations,
+    createPantryItem
+  }
+)(CreatePantryItemPage);

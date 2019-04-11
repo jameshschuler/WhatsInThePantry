@@ -124,6 +124,7 @@ const CreateItemForm = ({
             })}
         </select>
       </div>
+
       <div className="form-group">
         <label htmlFor="">Description</label>
         <textarea

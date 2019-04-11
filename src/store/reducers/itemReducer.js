@@ -1,4 +1,5 @@
 import {
+  FETCH_ITEMS_AUTOCOMPLETE_SUCCESS,
   FETCH_ITEMS_SUCCESS,
   FETCH_ITEM_AMOUNTS_SUCCESS,
   FETCH_ITEM_CATEGORIES_SUCCESS,
@@ -18,6 +19,11 @@ const itemReducer = (state = initialState, action) => {
       return {
         ...state,
         items: action.items
+      };
+    case FETCH_ITEMS_AUTOCOMPLETE_SUCCESS:
+      return {
+        ...state,
+        itemsAutocomplete: action.items
       };
     case FETCH_ITEM_CATEGORIES_SUCCESS:
       return {
