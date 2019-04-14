@@ -54,18 +54,11 @@ export default {
           "http://localhost:8080/api/item/category"
         );
       } catch (err) {
-        if (err.response.status === 404) {
-          return {
-            data: {
-              errors: ["Unable to retrieve item categories."]
-            }
-          };
-        }
-
-        return err.response;
+        const { data } = err.response;
+        return data;
       }
 
-      return response.data.itemCategories;
+      return response.data;
     }
   },
   itemAmount: {
@@ -76,18 +69,11 @@ export default {
           "http://localhost:8080/api/item/amount"
         );
       } catch (err) {
-        if (err.response.status === 404) {
-          return {
-            data: {
-              errors: ["Unable to retrieve item amnounts."]
-            }
-          };
-        }
-
-        return err.response;
+        const { data } = err.response;
+        return data;
       }
 
-      return response.data.itemAmounts;
+      return response.data;
     }
   },
   itemLocation: {
@@ -98,18 +84,11 @@ export default {
           "http://localhost:8080/api/item/location"
         );
       } catch (err) {
-        if (err.response.status === 404) {
-          return {
-            data: {
-              errors: ["Unable to retrieve item locations."]
-            }
-          };
-        }
-
-        return err.response;
+        const { data } = err.response;
+        return data;
       }
 
-      return response.data.itemLocations;
+      return response.data;
     }
   }
 };

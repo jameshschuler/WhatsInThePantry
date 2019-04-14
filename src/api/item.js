@@ -6,16 +6,11 @@ const item = {
     try {
       response = await axiosInstance.get("http://localhost:8080/api/item");
     } catch (err) {
-      if (err.response.status === 404) {
-        return {
-          errors: ["Unable to retrieve items."]
-        };
-      }
-
-      return err.response;
+      const { data } = err.response;
+      return data;
     }
 
-    return response.data.items;
+    return response.data;
   },
   getItemAutocomplete: async () => {
     let response;
@@ -43,10 +38,11 @@ const item = {
         item
       );
     } catch (err) {
-      return err.response.data;
+      const { data } = err.response;
+      return data;
     }
 
-    return response;
+    return response.data;
   }
 };
 

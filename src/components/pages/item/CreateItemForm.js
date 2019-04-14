@@ -1,22 +1,23 @@
 import React from "react";
+import ValidationError from "../../helpers/ValidationError";
 import useForm from "../../hooks/useForm";
 
 const validate = values => {
-  let errors = {};
+  let validationErrors = {};
 
   if (!values.itemName) {
-    errors.itemName = "Name is required";
+    validationErrors.itemName = <ValidationError />;
   }
 
   if (!values.category) {
-    errors.category = "Item Category is required";
+    validationErrors.category = <ValidationError />;
   }
 
   if (!values.amount) {
-    errors.amount = "Item Amount is required";
+    validationErrors.amount = <ValidationError />;
   }
 
-  return errors;
+  return validationErrors;
 };
 
 const CreateItemForm = ({
@@ -26,13 +27,13 @@ const CreateItemForm = ({
   itemLocations,
   submit
 }) => {
-  const { values, errors, handleChange, handleSubmit } = useForm(
+  const { values, validationErrors, handleChange, handleSubmit } = useForm(
     () => submit(values),
     validate
   );
 
   return (
-    <form className="form" onSubmit={handleSubmit}>
+    <form className="form" onSubmit={handleSubmit} autoComplete="off">
       <div className="d-flex justify-content-between align-items-center">
         <h2>Create Item</h2>
         <button type="submit" className="btn btn-success">
@@ -47,21 +48,23 @@ const CreateItemForm = ({
         </label>
         <input
           type="text"
-          className={`form-control ${errors.itemName && "invalid"}`}
+          className={`form-control ${validationErrors.itemName && "invalid"}`}
           placeholder="(e.g. Apple, Oats)"
           value={values.itemName || ""}
           onChange={handleChange}
           name="itemName"
         />
       </div>
-      {errors.itemName && <p className="help text-danger">{errors.itemName}</p>}
+      {validationErrors.itemName && (
+        <p className="help text-danger">{validationErrors.itemName}</p>
+      )}
 
       <div className="form-group">
         <label htmlFor="">
           Item Category <i className="fas fa-xs fa-fw fa-asterisk required" />
         </label>
         <select
-          className={`form-control ${errors.category && "invalid"}`}
+          className={`form-control ${validationErrors.category && "invalid"}`}
           value={values.category || ""}
           onChange={handleChange}
           name="category"
@@ -77,7 +80,9 @@ const CreateItemForm = ({
             })}
         </select>
       </div>
-      {errors.category && <p className="help text-danger">{errors.category}</p>}
+      {validationErrors.category && (
+        <p className="help text-danger">{validationErrors.category}</p>
+      )}
 
       <div className="form-group">
         <label htmlFor="">
@@ -87,7 +92,7 @@ const CreateItemForm = ({
         <select
           name="amount"
           id=""
-          className={`form-control ${errors.amount && "invalid"}`}
+          className={`form-control ${validationErrors.amount && "invalid"}`}
           value={values.amount || ""}
           onChange={handleChange}
         >
@@ -102,7 +107,9 @@ const CreateItemForm = ({
             })}
         </select>
       </div>
-      {errors.amount && <p className="help text-danger">{errors.amount}</p>}
+      {validationErrors.amount && (
+        <p className="help text-danger">{validationErrors.amount}</p>
+      )}
 
       <div className="form-group">
         <label htmlFor="">Default Item Location</label>

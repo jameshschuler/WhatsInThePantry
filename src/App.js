@@ -5,6 +5,9 @@ import GuestRoute from "./components/auth/GuestRoute";
 import PrivateRoute from "./components/auth/PrivateRoute";
 import RegisterPage from "./components/auth/Register/RegisterPage";
 import SignInPage from "./components/auth/SignIn/SignInPage";
+import Alert from "./components/helpers/Alert";
+import ErrorAlert from "./components/helpers/ErrorAlert";
+import Spinner from "./components/helpers/Spinner";
 import Header from "./components/layout/Header";
 import NavBar from "./components/layout/NavBar";
 import DashboardPage from "./components/pages/DashboardPage";
@@ -33,7 +36,7 @@ class App extends Component {
 
   render() {
     this.isAuth();
-    const { isAuthenticated } = this.props;
+    const { isAuthenticated, messages, errors, isFetching } = this.props;
 
     return (
       <BrowserRouter>
@@ -41,6 +44,10 @@ class App extends Component {
           <Header isAuthenticated={isAuthenticated} />
           <NavBar isAuthenticated={isAuthenticated} />
           <div className="container">
+            {isFetching && <Spinner />}
+            <Alert type={"success"} header={"Success!"} message={messages} />
+            <ErrorAlert errors={errors} />
+
             <GuestRoute
               isAuthenticated={isAuthenticated}
               exact
@@ -108,8 +115,13 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
+  const { isFetching, errors, message } = state.global;
+
   return {
-    isAuthenticated: !!state.auth.user
+    isAuthenticated: !!state.auth.user,
+    message,
+    isFetching,
+    errors
   };
 };
 

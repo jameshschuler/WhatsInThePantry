@@ -15,10 +15,17 @@ export const createPantry = name => async (dispatch, getState) => {
     name
   });
 
-  if (response.errors) {
-    dispatch(fetchFailure(false, response.errors));
+  const {
+    code,
+    messages,
+    result: { errors }
+  } = response;
+
+  if (code === 201) {
+    dispatch(fetchSuccess(false, messages));
   } else {
-    dispatch(fetchSuccess(false, response.data.message));
+    console.log(errors);
+    dispatch(fetchFailure(false, errors));
   }
 };
 

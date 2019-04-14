@@ -3,9 +3,8 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { getItems } from "../../../store/actions/itemActions";
 import Alert from "../../helpers/Alert";
-import Spinner from "../../helpers/Spinner";
 
-const Index = ({ getItems, isFetching, items }) => {
+const Index = ({ getItems, items }) => {
   useEffect(() => {
     getItems();
   }, []);
@@ -21,8 +20,7 @@ const Index = ({ getItems, isFetching, items }) => {
             </Link>
           </div>
           <hr />
-          {isFetching && <Spinner />}
-          {items.length > 0 ? (
+          {items && items.length > 0 ? (
             <div className="table-responsive">
               <table className="table table-striped mt-3">
                 <thead>

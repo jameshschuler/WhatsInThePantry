@@ -25,10 +25,11 @@ const pantry = {
         name
       );
     } catch (err) {
-      return err.response.data;
+      const { data } = err.response;
+      return data;
     }
 
-    return response;
+    return response.data;
   },
   createPantryItem: async pantryItem => {
     let response;

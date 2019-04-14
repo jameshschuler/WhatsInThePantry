@@ -56,21 +56,33 @@ export const createItem = values => async (dispatch, getState) => {
     description
   });
 
-  if (response.errors) {
-    dispatch(fetchFailure(false, response.errors));
+  const {
+    code,
+    messages,
+    result: { errors }
+  } = response;
+
+  if (code === 201) {
+    dispatch(fetchSuccess(false, messages));
   } else {
-    dispatch(fetchSuccess(false, response.data.message));
+    dispatch(fetchFailure(false, errors));
   }
 };
 
 export const getItems = () => async (dispatch, getState) => {
-  const response = await api.item.getItems();
+  dispatch(beginFetch(true));
 
-  if (response.data && response.data.errors) {
-    dispatch(fetchFailure(false, response.data.errors));
-  } else {
-    dispatch(fetchItemsSuccess(response));
+  const response = await api.item.getItems();
+  const {
+    code,
+    result: { errors, items }
+  } = response;
+
+  if (code === 200) {
+    dispatch(fetchItemsSuccess(items));
     dispatch(fetchSuccess(false));
+  } else {
+    dispatch(fetchFailure(false, errors));
   }
 };
 
@@ -91,12 +103,16 @@ export const getItemCategories = () => async (dispatch, getState) => {
   dispatch(beginFetch(true));
 
   const response = await api.category.getItemCategories();
+  const {
+    code,
+    result: { errors, itemCategories }
+  } = response;
 
-  if (response.data && response.data.errors) {
-    dispatch(fetchFailure(false, response.data.errors));
-  } else {
-    dispatch(fetchItemCategoriesSuccess(response));
+  if (code === 200) {
+    dispatch(fetchItemCategoriesSuccess(itemCategories));
     dispatch(fetchSuccess(false));
+  } else {
+    dispatch(fetchFailure(false, errors));
   }
 };
 
@@ -104,12 +120,16 @@ export const getItemLocations = () => async (dispatch, getState) => {
   dispatch(beginFetch(true));
 
   const response = await api.itemLocation.getItemLocations();
+  const {
+    code,
+    result: { errors, itemLocations }
+  } = response;
 
-  if (response.data && response.data.errors) {
-    dispatch(fetchFailure(false, response.data.errors));
-  } else {
-    dispatch(fetchItemLocationsSuccess(response));
+  if (code === 200) {
+    dispatch(fetchItemLocationsSuccess(itemLocations));
     dispatch(fetchSuccess(false));
+  } else {
+    dispatch(fetchFailure(false, errors));
   }
 };
 
@@ -117,11 +137,15 @@ export const getItemAmounts = () => async (dispatch, getState) => {
   dispatch(beginFetch(true));
 
   const response = await api.itemAmount.getItemAmounts();
+  const {
+    code,
+    result: { errors, itemAmounts }
+  } = response;
 
-  if (response.data && response.data.errors) {
-    dispatch(fetchFailure(false, response.data.errors));
-  } else {
-    dispatch(fetchItemAmountsSuccess(response));
+  if (code === 200) {
+    dispatch(fetchItemAmountsSuccess(itemAmounts));
     dispatch(fetchSuccess(false));
+  } else {
+    dispatch(fetchFailure(false, errors));
   }
 };

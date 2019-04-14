@@ -2,21 +2,21 @@ import { useEffect, useState } from "react";
 
 const useForm = (callback, validate) => {
   const [values, setValues] = useState({});
-  const [errors, setErrors] = useState({});
+  const [validationErrors, setValidationErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = e => {
     if (e) e.preventDefault();
 
     setIsSubmitting(true);
-    setErrors(validate(values));
+    setValidationErrors(validate(values));
   };
 
   useEffect(() => {
-    if (Object.keys(errors).length === 0 && isSubmitting) {
+    if (Object.keys(validationErrors).length === 0 && isSubmitting) {
       callback();
     }
-  }, [errors]);
+  }, [validationErrors]);
 
   const handleChange = e => {
     e.persist();
@@ -27,7 +27,8 @@ const useForm = (callback, validate) => {
     handleChange,
     handleSubmit,
     values,
-    errors
+    setValues,
+    validationErrors
   };
 };
 

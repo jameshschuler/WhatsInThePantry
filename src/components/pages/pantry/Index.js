@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { getPantries } from "../../../store/actions/pantryActions";
 import Alert from "../../helpers/Alert";
-import Spinner from "../../helpers/Spinner";
 
 const Index = ({ isFetching, pantries, getPantries }) => {
   useEffect(() => {
@@ -26,7 +25,6 @@ const Index = ({ isFetching, pantries, getPantries }) => {
             </Link>
           </div>
           <hr />
-          {isFetching && <Spinner />}
           {pantries.length > 0 ? (
             <div className="table-responsive">
               <table className="table table-striped mt-3">
