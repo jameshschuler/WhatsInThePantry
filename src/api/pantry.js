@@ -6,16 +6,25 @@ const pantry = {
     try {
       response = await axiosInstance.get("http://localhost:8080/api/pantry");
     } catch (err) {
-      if (err.response.status === 404) {
-        return {
-          errors: ["Unable to retrieve pantries."]
-        };
-      }
-
-      return err.response;
+      const { data } = err.response;
+      return data;
     }
 
-    return response.data.pantries;
+    return response.data;
+  },
+  getPantryItems: async pantryId => {
+    let response;
+    try {
+      response = await axiosInstance.get(
+        `http://localhost:8080/api/pantry/${pantryId}/items`
+      );
+      console.log(response);
+    } catch (err) {
+      const { data } = err.response;
+      return data;
+    }
+
+    return response.data;
   },
   create: async name => {
     let response;

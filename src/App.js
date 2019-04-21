@@ -17,6 +17,7 @@ import ItemIndex from "./components/pages/item/Index";
 import CreatePantryPage from "./components/pages/pantry/CreatePantryPage";
 import PantryIndex from "./components/pages/pantry/Index";
 import CreatePantryItemPage from "./components/pages/pantry/pantryItem/CreatePantryItemPage";
+import PantryItemIndex from "./components/pages/pantry/pantryItem/Index";
 import { me } from "./store/actions/authActions";
 
 class App extends Component {
@@ -31,7 +32,10 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    await this.props.me();
+    const { isAuthenticated } = this.props;
+    if (isAuthenticated) {
+      await this.props.me();
+    }
   }
 
   render() {
@@ -104,8 +108,15 @@ class App extends Component {
             <PrivateRoute
               isAuthenticated={isAuthenticated}
               exact
-              path="/pantries/:id/create_item"
+              path="/pantries/:id/item/create"
               component={CreatePantryItemPage}
+            />
+
+            <PrivateRoute
+              isAuthenticated={isAuthenticated}
+              exact
+              path="/pantries/:id/items"
+              component={PantryItemIndex}
             />
           </div>
         </div>

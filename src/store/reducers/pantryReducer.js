@@ -1,7 +1,8 @@
-import { FETCH_PANTRIES_SUCCESS } from "../types";
+import { FETCH_PANTRIES_SUCCESS, FETCH_PANTRY_ITEMS_SUCCESS } from "../types";
 
 const initialState = {
-  pantries: []
+  pantries: [],
+  pantryItems: []
 };
 
 const pantryReducer = (state = initialState, action) => {
@@ -10,6 +11,11 @@ const pantryReducer = (state = initialState, action) => {
       return {
         ...state,
         pantries: action.pantries
+      };
+    case FETCH_PANTRY_ITEMS_SUCCESS:
+      return {
+        ...state,
+        pantryItems: action.pantryItems
       };
     default:
       return state;

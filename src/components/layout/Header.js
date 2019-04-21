@@ -1,8 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { signout } from "../../store/actions/authActions";
 
-const Header = ({ isAuthenticated, username }) => {
+const Header = ({ isAuthenticated, username, signout }) => {
   return (
     <>
       <div
@@ -17,9 +18,12 @@ const Header = ({ isAuthenticated, username }) => {
           <Link to="/account" className="header-link">
             <i className="fas fa-user-cog fa-fw fa-lg" />
           </Link>
-          <a href="!" className="header-link">
+          <button
+            className="header-link btn btn-link"
+            onClick={() => signout()}
+          >
             <i className="fas fa-sign-out-alt fa-fw fa-lg ml-2" />
-          </a>
+          </button>
         </div>
       )}
     </>
@@ -32,4 +36,9 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(Header);
+export default connect(
+  mapStateToProps,
+  {
+    signout
+  }
+)(Header);

@@ -19,8 +19,11 @@
 /* header styles */
 #header {
   padding: 0 0.5rem;
+}
 
-  #header-links {
+#header-links {
+  button.header-link {
+    padding: 0;
   }
 }
 

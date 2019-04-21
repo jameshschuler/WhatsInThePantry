@@ -2,28 +2,31 @@ import React from "react";
 import useForm from "../../hooks/useForm";
 
 const validate = values => {
-  let errors = {};
+  let validationErrors = {};
 
   if (!values.usernameOrEmail) {
-    errors.usernameOrEmail = "Email address or username is required";
+    validationErrors.usernameOrEmail = "Email address or username is required";
   }
 
   if (!values.password) {
-    errors.password = "Password is required";
+    validationErrors.password = "Password is required";
   }
 
-  return errors;
+  return validationErrors;
 };
 
 const SignInForm = ({ submit }) => {
-  const { values, errors, handleChange, handleSubmit } = useForm(
+  const { values, validationErrors, handleChange, handleSubmit } = useForm(
     () => submit(values),
     validate
   );
 
   return (
     <form id="signin-form" className="form" onSubmit={handleSubmit}>
-      <div className={`input-group ${errors.usernameOrEmail && "invalid"}`}>
+      <div
+        className={`input-group ${validationErrors.usernameOrEmail &&
+          "invalid"}`}
+      >
         <input
           type="text"
           placeholder="Enter your username or email"
@@ -38,11 +41,11 @@ const SignInForm = ({ submit }) => {
           </span>
         </div>
       </div>
-      {errors.usernameOrEmail && (
-        <p className="help text-danger">{errors.usernameOrEmail}</p>
+      {validationErrors.usernameOrEmail && (
+        <p className="help text-danger">{validationErrors.usernameOrEmail}</p>
       )}
 
-      <div className={`input-group ${errors.password && "invalid"}`}>
+      <div className={`input-group ${validationErrors.password && "invalid"}`}>
         <input
           type="password"
           placeholder="Enter your password"
@@ -57,7 +60,9 @@ const SignInForm = ({ submit }) => {
           </span>
         </div>
       </div>
-      {errors.password && <p className="help text-danger">{errors.password}</p>}
+      {validationErrors.password && (
+        <p className="help text-danger">{validationErrors.password}</p>
+      )}
 
       <button type="submit" className="btn btn-success">
         Sign in

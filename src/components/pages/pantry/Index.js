@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { getPantries } from "../../../store/actions/pantryActions";
 import Alert from "../../helpers/Alert";
 
-const Index = ({ isFetching, pantries, getPantries }) => {
+const Index = ({ pantries, getPantries }) => {
   useEffect(() => {
     getPantries();
   }, []);
@@ -33,6 +33,7 @@ const Index = ({ isFetching, pantries, getPantries }) => {
                     <th>Name</th>
                     <th>Shared</th>
                     <th>Created</th>
+                    <th>Pantry Items</th>
                     <th />
                   </tr>
                 </thead>
@@ -43,8 +44,12 @@ const Index = ({ isFetching, pantries, getPantries }) => {
                         <td>{pantry.name}</td>
                         <td>{pantry.isShared ? "Yes" : "No"}</td>
                         <td>{parseDate(pantry.createdAt)}</td>
+                        <td>{pantry.pantryItems.length}</td>
                         <td className="d-flex justify-content-end">
-                          <Link to={`/pantries/${pantry.id}/create_item`}>
+                          <Link to={`/pantries/${pantry.id}/items`}>
+                            <i className="fas fa-lg fa-arrow-right fa-fw" />
+                          </Link>
+                          <Link to={`/pantries/${pantry.id}/item/create`}>
                             <i className="fas fa-lg fa-plus fa-fw" />
                           </Link>
                           <i className="fas fa-lg fa-pencil-alt fa-fw" />
@@ -72,7 +77,6 @@ const Index = ({ isFetching, pantries, getPantries }) => {
 const mapStateToProps = state => {
   return {
     ...state,
-    isFetching: state.global.isFetching,
     pantries: state.pantry.pantries
   };
 };

@@ -1,11 +1,18 @@
 import api from "../../api";
-import { FETCH_PANTRIES_SUCCESS } from "../types";
+import { FETCH_PANTRIES_SUCCESS, FETCH_PANTRY_ITEMS_SUCCESS } from "../types";
 import { beginFetch, fetchFailure, fetchSuccess } from "./globalActions";
 
 const fetchPantriesSuccess = pantries => {
   return {
     type: FETCH_PANTRIES_SUCCESS,
     pantries
+  };
+};
+
+const fetchPantryItemsSuccess = pantryItems => {
+  return {
+    type: FETCH_PANTRY_ITEMS_SUCCESS,
+    pantryItems
   };
 };
 
@@ -54,11 +61,32 @@ export const getPantries = () => async (dispatch, getState) => {
   dispatch(beginFetch(true));
 
   const response = await api.pantry.getPantries();
+  const {
+    code,
+    result: { errors, pantries }
+  } = response;
 
-  if (response.data && response.data.errors) {
-    dispatch(fetchFailure(false, response.data.errors));
-  } else {
-    dispatch(fetchPantriesSuccess(response));
+  if (code === 200) {
+    dispatch(fetchPantriesSuccess(pantries));
     dispatch(fetchSuccess(false));
+  } else {
+    dispatch(fetchFailure(false, errors));
+  }
+};
+
+export const getPantryItems = pantryId => async (dispatch, getState) => {
+  dispatch(beginFetch(true));
+
+  const response = await api.pantry.getPantryItems(pantryId);
+  const {
+    code,
+    result: { errors, pantryItems }
+  } = response;
+
+  if (code === 200) {
+    dispatch(fetchPantryItemsSuccess(pantryItems));
+    dispatch(fetchSuccess(false));
+  } else {
+    dispatch(fetchFailure(false, errors));
   }
 };

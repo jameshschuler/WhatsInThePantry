@@ -21,42 +21,41 @@ const Index = ({ getItems, items }) => {
           </div>
           <hr />
           {items && items.length > 0 ? (
-            <div className="table-responsive">
-              <table className="table table-striped mt-3">
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Category</th>
-                    <th>Default Item Amount</th>
-                    <th>Default Location</th>
-                    <th />
-                  </tr>
-                </thead>
-                <tbody>
-                  {items.map((item, index) => {
-                    return (
-                      <tr key={index}>
-                        <td>{item.name}</td>
-                        <td>{item.description}</td>
-                        <td>{item.itemCategory.name}</td>
-                        <td>
+            <div className="card-deck">
+              {items.map((item, index) => {
+                return (
+                  <div className="col-md-6" key={index}>
+                    <div className="card mb-4">
+                      <div className="card-body">
+                        <h5 className="card-title">
+                          {item.name} - {item.description}
+                        </h5>
+                        <p className="card-text">{item.itemCategory.name}</p>
+                        <p className="card-text">
+                          <span>Default Amount: </span>
                           {item.defaultItemAmount &&
                             item.defaultItemAmount.name}
-                        </td>
-                        <td>
+                        </p>
+                        <p className="card-text">
+                          <span>Default Location: </span>
                           {item.defaultItemLocation &&
                             item.defaultItemLocation.name}
-                        </td>
-                        <td>
-                          <i className="fas fa-lg fa-pencil-alt fa-fw" />
-                          <i className="fas fa-lg fa-trash-alt fa-fw" />
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
+                        </p>
+
+                        <hr />
+                        <div className="d-flex justify-content-end">
+                          <Link to={`/items/${item.id}/edit`}>
+                            <i className="fas fa-lg fa-pencil-alt fa-fw" />
+                          </Link>
+                          <Link to={`/items/${item.id}/delete`}>
+                            <i className="fas fa-lg fa-trash-alt fa-fw" />
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           ) : (
             <Alert
