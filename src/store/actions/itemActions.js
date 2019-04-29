@@ -69,6 +69,26 @@ export const createItem = values => async (dispatch, getState) => {
   }
 };
 
+export const deleteItem = itemId => async (dispatch, getState) => {
+  dispatch(beginFetch(true));
+
+  const response = await api.item.delete(itemId);
+
+  const {
+    code,
+    messages,
+    result: { errors }
+  } = response;
+
+  console.log(messages);
+
+  if (code === 200) {
+    dispatch(fetchSuccess(false, messages));
+  } else {
+    dispatch(fetchFailure(false, errors));
+  }
+};
+
 export const getItems = () => async (dispatch, getState) => {
   dispatch(beginFetch(true));
 

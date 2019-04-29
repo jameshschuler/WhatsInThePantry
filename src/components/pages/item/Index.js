@@ -1,16 +1,21 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { getItems } from "../../../store/actions/itemActions";
+import { deleteItem, getItems } from "../../../store/actions/itemActions";
 import Alert from "../../helpers/Alert";
 
-const Index = ({ getItems, items }) => {
+const Index = ({ getItems, deleteItem, items }) => {
   useEffect(() => {
     getItems();
   }, []);
 
+  const deleteItemAndGetItems = async itemId => {
+    await deleteItem(itemId);
+    await getItems();
+  };
+
   return (
-    <div className="container mt-5">
+    <div className="my-5">
       <div className="row">
         <div className="col-md-12">
           <div className="d-flex justify-content-between align-items-center">
@@ -43,13 +48,19 @@ const Index = ({ getItems, items }) => {
                         </p>
 
                         <hr />
-                        <div className="d-flex justify-content-end">
+                        <div className="d-flex justify-content-end align-items-center">
                           <Link to={`/items/${item.id}/edit`}>
                             <i className="fas fa-lg fa-pencil-alt fa-fw" />
                           </Link>
-                          <Link to={`/items/${item.id}/delete`}>
+                          {/* <Link to={`/items/${item.id}/delete`}>
                             <i className="fas fa-lg fa-trash-alt fa-fw" />
-                          </Link>
+                          </Link> */}
+                          <button
+                            className="btn btn-link"
+                            onClick={() => deleteItemAndGetItems(item.id)}
+                          >
+                            <i className="fas fa-lg fa-trash-alt fa-fw" />
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -81,6 +92,7 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   {
-    getItems
+    getItems,
+    deleteItem
   }
 )(Index);

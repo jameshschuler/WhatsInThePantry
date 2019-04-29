@@ -13,6 +13,7 @@ import NavBar from "./components/layout/NavBar";
 import DashboardPage from "./components/pages/DashboardPage";
 import HomePage from "./components/pages/HomePage";
 import CreateItemPage from "./components/pages/item/CreateItemPage";
+import EditItemPage from "./components/pages/item/EditItemPage";
 import ItemIndex from "./components/pages/item/Index";
 import CreatePantryPage from "./components/pages/pantry/CreatePantryPage";
 import PantryIndex from "./components/pages/pantry/Index";
@@ -89,6 +90,13 @@ class App extends Component {
               exact
               path="/items/create"
               component={CreateItemPage}
+            />
+
+            <PrivateRoute
+              isAuthenticated={isAuthenticated}
+              exact
+              path="/items/:id/edit"
+              component={EditItemPage}
             />
 
             <PrivateRoute

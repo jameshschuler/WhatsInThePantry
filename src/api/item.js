@@ -43,6 +43,19 @@ const item = {
     }
 
     return response.data;
+  },
+  delete: async itemId => {
+    let response;
+    try {
+      response = await axiosInstance.delete(
+        `http://localhost:8080/api/item/${itemId}`
+      );
+    } catch (err) {
+      const { data } = err.response;
+      return data;
+    }
+
+    return response.data;
   }
 };
 
