@@ -134,11 +134,11 @@ class App extends Component {
 }
 
 const mapStateToProps = state => {
-  const { isFetching, errors, message } = state.global;
+  const { isFetching, errors, messages } = state.global;
 
   return {
     isAuthenticated: !!state.auth.user,
-    message,
+    messages,
     isFetching,
     errors
   };

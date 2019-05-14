@@ -12,6 +12,19 @@ const item = {
 
     return response.data;
   },
+  getItem: async itemId => {
+    let response;
+    try {
+      response = await axiosInstance.get(
+        `http://localhost:8080/api/item/${itemId}`
+      );
+    } catch (err) {
+      const { data } = err.response;
+      return data;
+    }
+
+    return response.data;
+  },
   getItemAutocomplete: async () => {
     let response;
     try {
@@ -34,6 +47,20 @@ const item = {
     let response;
     try {
       response = await axiosInstance.post(
+        "http://localhost:8080/api/item",
+        item
+      );
+    } catch (err) {
+      const { data } = err.response;
+      return data;
+    }
+
+    return response.data;
+  },
+  update: async item => {
+    let response;
+    try {
+      response = await axiosInstance.put(
         "http://localhost:8080/api/item",
         item
       );

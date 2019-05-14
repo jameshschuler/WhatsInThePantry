@@ -11,8 +11,8 @@ export const fetchFailure = (isFetching, errors) => ({
   errors
 });
 
-export const fetchSuccess = (isFetching, message) => ({
+export const fetchSuccess = (isFetching, messages) => ({
   type: GLOBAL_SUCCESS,
   isFetching,
-  message
+  messages
 });

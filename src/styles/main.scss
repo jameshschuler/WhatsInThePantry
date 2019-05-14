@@ -1,3 +1,5 @@
+$bg-color: #ffc107 !important;
+
 .page {
   padding-top: 4rem;
   padding-bottom: 4rem;
@@ -18,7 +20,10 @@
 
 /* header styles */
 #header {
-  padding: 0 0.5rem;
+  background-color: $bg-color;
+  color: #fff;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
 }
 
 #header-links {
@@ -29,9 +34,10 @@
 
 /* bottom navbar styles */
 .navbar {
-  background-color: cyan; // TEMP
+  background-color: $bg-color;
 
   .navbar-item {
+    color: #fff;
     svg {
       margin-right: 0.5rem;
     }

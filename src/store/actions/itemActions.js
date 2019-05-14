@@ -4,7 +4,8 @@ import {
   FETCH_ITEMS_SUCCESS,
   FETCH_ITEM_AMOUNTS_SUCCESS,
   FETCH_ITEM_CATEGORIES_SUCCESS,
-  FETCH_ITEM_LOCATIONS_SUCCESS
+  FETCH_ITEM_LOCATIONS_SUCCESS,
+  FETCH_ITEM_SUCCESS
 } from "../types";
 import { beginFetch, fetchFailure, fetchSuccess } from "./globalActions";
 
@@ -12,6 +13,13 @@ const fetchItemsSuccess = items => {
   return {
     type: FETCH_ITEMS_SUCCESS,
     items
+  };
+};
+
+const fetchItemSuccess = item => {
+  return {
+    type: FETCH_ITEM_SUCCESS,
+    item
   };
 };
 
@@ -43,6 +51,10 @@ const fetchItemAmountsSuccess = itemAmounts => {
   };
 };
 
+/**
+ *
+ * @param {*} values
+ */
 export const createItem = values => async (dispatch, getState) => {
   dispatch(beginFetch(true));
 
@@ -63,6 +75,36 @@ export const createItem = values => async (dispatch, getState) => {
   } = response;
 
   if (code === 201) {
+    dispatch(fetchSuccess(false, messages));
+  } else {
+    dispatch(fetchFailure(false, errors));
+  }
+};
+
+/**
+ *
+ * @param {*} values
+ */
+export const updateItem = values => async (dispatch, getState) => {
+  dispatch(beginFetch(true));
+
+  const { itemName, amount, category, description, location, id } = values;
+
+  const response = await api.item.update({
+    name: itemName,
+    defaultItemAmountId: amount,
+    itemCategoryId: category,
+    defaultItemLocationId: location,
+    description,
+    id
+  });
+
+  const {
+    code,
+    messages,
+    result: { errors }
+  } = response;
+  if (code === 200) {
     dispatch(fetchSuccess(false, messages));
   } else {
     dispatch(fetchFailure(false, errors));
@@ -100,6 +142,27 @@ export const getItems = () => async (dispatch, getState) => {
 
   if (code === 200) {
     dispatch(fetchItemsSuccess(items));
+    dispatch(fetchSuccess(false));
+  } else {
+    dispatch(fetchFailure(false, errors));
+  }
+};
+
+/**
+ *
+ * @param {number} itemId
+ */
+export const getItem = itemId => async (dispatch, getState) => {
+  dispatch(beginFetch(true));
+
+  const response = await api.item.getItem(itemId);
+  const {
+    code,
+    result: { errors, item }
+  } = response;
+
+  if (code === 200) {
+    dispatch(fetchItemSuccess(item));
     dispatch(fetchSuccess(false));
   } else {
     dispatch(fetchFailure(false, errors));

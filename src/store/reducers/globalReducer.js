@@ -3,7 +3,7 @@ import { GLOBAL_BEGAN_FETCH, GLOBAL_ERROR, GLOBAL_SUCCESS } from "../types";
 const initialState = {
   isFetching: false,
   errors: null,
-  message: null
+  messages: null
 };
 
 const globalReducer = (state = initialState, action) => {
@@ -23,7 +23,7 @@ const globalReducer = (state = initialState, action) => {
       return {
         ...state,
         isFetching: action.isFetching,
-        message: action.message,
+        messages: action.messages,
         errors: null
       };
     default:

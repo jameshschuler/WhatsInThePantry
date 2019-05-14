@@ -3,7 +3,8 @@ import {
   FETCH_ITEMS_SUCCESS,
   FETCH_ITEM_AMOUNTS_SUCCESS,
   FETCH_ITEM_CATEGORIES_SUCCESS,
-  FETCH_ITEM_LOCATIONS_SUCCESS
+  FETCH_ITEM_LOCATIONS_SUCCESS,
+  FETCH_ITEM_SUCCESS
 } from "../types";
 
 const initialState = {
@@ -19,6 +20,11 @@ const itemReducer = (state = initialState, action) => {
       return {
         ...state,
         items: action.items
+      };
+    case FETCH_ITEM_SUCCESS:
+      return {
+        ...state,
+        item: action.item
       };
     case FETCH_ITEMS_AUTOCOMPLETE_SUCCESS:
       return {
